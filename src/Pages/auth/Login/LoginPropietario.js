@@ -14,6 +14,8 @@ const LoginPropietario = () => {
     clave: "",
   });
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const LoginPropietario = () => {
       validationErrors.Valid === "valid"
     ) {
       axios
-        .post("/propietario/vista_perfil", values)
+        .post(`${proxy}/propietario/vista_perfil`, values)
         .then((res) => {
           if (res.data.Status === "Success") {
             navigate("/MainPropietario");

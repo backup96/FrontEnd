@@ -27,8 +27,10 @@ export function NavBar() {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
+  const proxy = process.env.REACT_APP_API_URL;
+
  const getCookie = async () => {
-   const cookie = await axios.get("http://localhost:8081/public", {
+   const cookie = await axios.get(`${proxy}/public`, {
      withCredentials: true,
    });
    if (cookie.data.Status === "Success") {
@@ -49,7 +51,7 @@ export function NavBar() {
 
   const handleDelete = () => {
     axios
-      .get("/public/logout")
+      .get(`${proxy}/public/logout`)
       .then((res) => {
         navigate("/");
       })
