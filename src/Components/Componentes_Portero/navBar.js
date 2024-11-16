@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import myImg from "../../img/logo2.png"; /* Logo del conjutno */
 import { useUser } from "../../userContext";
-import '../estilosnav.css';
+import "../estilosnav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
@@ -33,11 +33,16 @@ export const NavBar = ({ children }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const proxy = process.env.REACT_APP_API_URL;
 
   const getCookie = async () => {
-    const cookie = await axios.get("http://localhost:8081/public", {
-      withCredentials: true,
-    });
+    const cookie = await axios.get(
+      `
+${proxy}/public`,
+      {
+        withCredentials: true,
+      }
+    );
     if (cookie.data.Status === "Success") {
       setName(cookie.data.nombreUsuario);
     } else {
@@ -52,7 +57,7 @@ export const NavBar = ({ children }) => {
 
   const handleDelete = () => {
     axios
-      .get("/public/logout")
+      .get(`${proxy}/public/logout`)
       .then((res) => {
         navigate("/");
       })
@@ -66,7 +71,7 @@ export const NavBar = ({ children }) => {
       <div className="d-flex flex-column justify-content-start h-100 ">
         {/* Barra de navegación */}
         <div>
-        <nav className="navbar navbar-expand-lg navbar-custom w-100">
+          <nav className="navbar navbar-expand-lg navbar-custom w-100">
             <div className="container px-lg-5 d-flex flex-row justify-content-between">
               <div>
                 <button
@@ -136,7 +141,7 @@ export const NavBar = ({ children }) => {
                 transition: "transform 0.3s ease-in-out",
               }}
             >
-                <div className="d-flex flex-column p-3 sidebar-custom h-100">
+              <div className="d-flex flex-column p-3 sidebar-custom h-100">
                 <div
                   style={{
                     transform:
