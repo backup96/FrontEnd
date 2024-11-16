@@ -45,7 +45,7 @@ export function NavBar() {
       console.log(cookie, "Hola")
   };
 
-  // useEffect(() => {getCookie(); }, [name]);
+  useEffect(() => {getCookie(); }, [name]);
 
   const handleDelete = () => {
     axios
@@ -336,7 +336,7 @@ export function NavBar() {
             </div>
           </div>
           {/* Tabla de contenido */}
-          <Tabla
+          {/* <Tabla
             className="z-0"
             item={
               currentTable === "Apartamentos"
@@ -394,7 +394,7 @@ export function NavBar() {
                 : null
             }
             apiS={currentTable}
-          />
+          /> */}
         </div>
       </div>
     </div>
