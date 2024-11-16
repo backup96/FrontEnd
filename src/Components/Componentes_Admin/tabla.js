@@ -18,6 +18,8 @@ import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 const Tabla = ({ item, apiS }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const recordsPerPage = 7;
   // Datos de ejemplo
   const [data, setDatos] = useState([]);
@@ -26,13 +28,15 @@ const Tabla = ({ item, apiS }) => {
     const fetchApartamentos = async () => {
       try {
         if (apiS === "Reporte") {
-          const response = await axios.get(`/admin/getEspRent`);
+          const response = await axios.get(`
+${proxy}/admin/getEspRent`);
           setDatos(response.data);
           if (response.data.length === 0) {
             setDatos([]);
           }
         } else {
-          const response = await axios.get(`/admin/get${apiS}`);
+          const response = await axios.get(`
+${proxy}/admin/get${apiS}`);
           setDatos(response.data);
           if (response.data.length === 0) {
             setDatos([]);
@@ -51,7 +55,8 @@ const Tabla = ({ item, apiS }) => {
   useEffect(() => {
     async function fetchApartamentos() {
       try {
-        const response = await axios.get(`/public/Apartamentos`);
+        const response = await axios.get(`
+${proxy}/public/Apartamentos`);
         setDatosApart(response.data);
         if (response.data.length === 0) {
           setDatosApart([]);
@@ -69,7 +74,8 @@ const Tabla = ({ item, apiS }) => {
   useEffect(() => {
     async function fetchApartamentos() {
       try {
-        const response = await axios.get(`/admin/getParqueadero`);
+        const response = await axios.get(`
+${proxy}/admin/getParqueadero`);
         setdataEsp(response.data);
         if (response.data.length === 0) {
           setdataEsp([]);
