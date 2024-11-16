@@ -24,7 +24,7 @@ library.add(faPersonMilitaryPointing);
 library.add(faXmark);
 
 export function NavBar() {
-  const { setUser: setContextUser } = useUser();
+  const proxy = process.env.REACT_APP_API_URL;
   const [currentTable, setCurrentTable] = useState("Apartamentos");
   const [name, setName] = useState("");
   const [showSideBar, setShowSideBar] = useState(false);
@@ -33,7 +33,7 @@ export function NavBar() {
   const navigate = useNavigate();
 
   const getCookie = async () => {
-    const cookie = await axios.get("http://localhost:8081/public", {
+    const cookie = await axios.get(`${proxy}/public`, {
       withCredentials: true,
     });
       if (cookie.data.Status === "Success") {

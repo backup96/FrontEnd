@@ -14,6 +14,8 @@ const LoginAdministrador = () => {
     clave: "",
   });
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const [errors, setError] = useState({});
 
   const navigate = useNavigate();
@@ -27,10 +29,7 @@ const LoginAdministrador = () => {
       validationErrors.Valid === "valid"
     ) {
       axios
-        .post(
-          "https://stellar-contentment-production.up.railway.app/admin/login",
-          values
-        )
+        .post(`${proxy}/admin/login`, values)
         .then((res) => {
           if (res.data.Status === "Success") {
             navigate("/MainAdmin");
