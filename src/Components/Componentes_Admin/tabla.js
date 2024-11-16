@@ -145,12 +145,6 @@ ${proxy}/admin/getParqueadero`);
                 data={dataApart}
                 data2={dataEsp}
               />
-            ) : apiS === "Reuniones" ? (
-              <Reunion
-                item={item}
-                currentRecords={currentRecords}
-                apiS={apiS}
-              />
             ) : apiS === "Porteros" ? (
               <Porteros
                 item={item}

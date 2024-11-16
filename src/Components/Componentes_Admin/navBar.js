@@ -291,26 +291,6 @@ export function NavBar() {
                     </div>
                   </Link>
                 </li>
-                {/* <li>
-                  <Link
-                    onClick={() => {
-                      setCurrentTable("Reuniones");
-                      setCurrentDropMenu("Acción");
-                    }}
-                    href="#"
-                    className={
-                      currentTable === "Reuniones"
-                        ? "nav-link active d-flex flex-row justify-content-between"
-                        : "nav-link d-flex flex-row justify-content-between"
-                    }
-                    aria-current="page"
-                  >
-                    <div className="w-100">Reuniones</div>
-                    <div>
-                      <FontAwesomeIcon icon={faHandshake} />
-                    </div>
-                  </Link>
-                </li> */}
                 <li>
                   <Link
                     onClick={() => {
