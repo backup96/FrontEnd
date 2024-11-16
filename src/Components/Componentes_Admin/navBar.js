@@ -40,7 +40,7 @@ export function NavBar() {
       if (cookie.data.Status === "Success") {
         setName(cookie.data.nombreUsuario);
       } else {
-        navigate(`${proxy}/`);
+        navigate("/");
       }
       console.log(cookie, "Hola")
   };
@@ -49,9 +49,9 @@ export function NavBar() {
 
   const handleDelete = () => {
     axios
-      .get("/public/logout")
+      .get(`${proxy}/public/logout`)
       .then((res) => {
-        navigate(`${proxy}/`);
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };
