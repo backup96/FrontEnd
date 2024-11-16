@@ -9,10 +9,10 @@ import { ToastContainer, toast } from "react-toastify";
 import Fondo1 from "../../../img/fondo1.png"; /* Importación de la imagen de fondo */
 
 const LoginPortero = () => {
-  const [Username, setUsername] = useState("");
-  const [Password, setPassword] = useState("");
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+
+  const proxy = process.env.REACT_APP_API_URL;
 
   const [values, setValues] = useState({
     nombreUsuario: "",
@@ -28,7 +28,9 @@ const LoginPortero = () => {
       validationErrors.Valid === "valid"
     ) {
       axios
-        .post("/portero/loginPortero", values)
+        .post(`${proxy}/portero/loginPortero`,
+          values
+        )
         .then((res) => {
           if (res.data.Status === "Success") {
             navigate("/MainPortero");
@@ -76,7 +78,7 @@ const LoginPortero = () => {
             <form onSubmit={handleSubmit}>
               {/* Nombre y Apellido */}
               <div className="d-flex flex-row">
-              <div className="me-4 w-50">
+                <div className="me-4 w-50">
                   <label
                     className="text-start w-100 fw-normal"
                     htmlFor="Username"
