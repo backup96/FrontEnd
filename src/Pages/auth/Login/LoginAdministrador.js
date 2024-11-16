@@ -27,7 +27,10 @@ const LoginAdministrador = () => {
       validationErrors.Valid === "valid"
     ) {
       axios
-        .post("/admin/login", values)
+        .post(
+          "https://stellar-contentment-production.up.railway.app/admin/login",
+          values
+        )
         .then((res) => {
           if (res.data.Status === "Success") {
             navigate("/MainAdmin");
