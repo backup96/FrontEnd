@@ -1,0 +1,300 @@
+.profile-container {
+  background-color: #f8f9fa; 
+  padding: 20px;
+  border-radius: 20px; 
+  border: 1px solid #007bff;
+  max-width: 800px;
+  margin: 100px auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-align: center; 
+  position: relative;
+}
+
+.profile-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px; 
+  color: #007bff; 
+  font-weight: bold; 
+}
+
+.profile-info {
+  padding: 10px; 
+}
+
+.profile-info p strong {
+  font-weight: bold;
+  color: #212529; 
+}
+
+.profile-grid, .profile-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.profile-left {
+  text-align: left;
+  width: 100%;
+}
+
+.housing-info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 300px;
+  text-align: right;
+}
+
+.housing-info h4 {
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.housing-info p {
+  margin: 5px 0;
+  text-align: right;
+}
+.vehicle-info {
+  position: absolute;
+  right: 0;
+  top: 195px; /* Ajusta este valor según necesites para la separación */
+  width: 300px;
+  text-align: right;
+}
+
+.housing-info h4, .vehicle-info h4 {
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.housing-info p, .vehicle-info p {
+  margin: 5px 0;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .housing-info, .vehicle-info {
+    position: relative;
+    width: 100%;
+    top: auto;
+    margin-top: 20px;
+  }
+}
+.profile-section {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-section2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.profile-section2 p {
+  text-align: right;
+}
+
+.profile-section h4, .profile-section2 h4 {
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left; 
+}
+
+.profile-section p {
+  margin: 5px 0;
+}
+
+.edit-icon {
+  color: #007bff;
+  cursor: pointer;
+  font-size: 20px;
+  margin-left: 10px;
+  transition: color 0.3s;
+}
+
+.edit-icon:hover {
+  color: #0056b3;
+}
+
+.check-icon {
+  color: #28a745;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.check-icon:hover {
+  color: #218838;
+}
+
+.btn-secondary {
+  background-color: #007bff;
+  color: #ffffff;
+  border: 1px solid #007bff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+
+.btn-secondary:hover {
+  background-color: #0056b3;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0 auto;
+  background-color: #333;
+}
+
+.card-perfil {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+  padding: 16px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 20px auto;
+}
+
+.card img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.card h1 {
+  color: #000;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.card p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Estilos para el modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  color: #007bff;
+  margin: 0;
+}
+
+.close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.modal-footer {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    margin: 20px;
+    padding: 15px;
+  }
+
+  .profile-title {
+    font-size: 20px;
+  }
+
+  .profile-info p {
+    font-size: 14px;
+  }
+
+  .btn-secondary {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .profile-columns {
+    flex-direction: column;
+  }
+
+  .housing-info {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 10px;
+  }
+}
