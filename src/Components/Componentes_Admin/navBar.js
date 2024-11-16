@@ -349,14 +349,6 @@ export function NavBar() {
                   ]
                 : currentTable === "ReservaSalon"
                 ? []
-                : currentTable === "Reuniones"
-                ? [
-                    "Número de Reunión",
-                    "Motivo",
-                    "Fecha",
-                    "Hora Inicio",
-                    "Hora Finalización",
-                  ]
                 : currentTable === "Porteros"
                 ? [
                     "Nombre",

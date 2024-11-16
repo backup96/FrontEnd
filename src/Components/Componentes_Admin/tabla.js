@@ -8,7 +8,6 @@ import Vivienda from "./viviendas";
 import Propietario from "./propietarios";
 import Parqueadero from "./parqueadero";
 import Invitados from "./invitados";
-import Reunion from "./reuniones";
 import Porteros from "./porteros";
 import Info from "./informacion";
 import Reporte from "./reporte";
