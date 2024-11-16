@@ -39,7 +39,7 @@ export function NavBar() {
       if (cookie.data.Status === "Success") {
         setName(cookie.data.nombreUsuario);
       } else {
-        navigate("/");
+        navigate(`${proxy}/`);
       }
       console.log(cookie, "Hola")
   };
@@ -50,7 +50,7 @@ export function NavBar() {
     axios
       .get("/public/logout")
       .then((res) => {
-        navigate("/");
+        navigate(`${proxy}/`);
       })
       .catch((err) => console.log(err));
   };
