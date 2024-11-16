@@ -44,7 +44,7 @@ export function NavBar() {
       console.log(cookie, "Hola")
   };
 
-  useEffect(() => {getCookie(); }, []);
+  useEffect(() => {getCookie(); }, [name]);
 
   const handleDelete = () => {
     axios
