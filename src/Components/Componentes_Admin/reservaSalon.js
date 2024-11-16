@@ -20,6 +20,8 @@ const ReservaSalon = ({ currentRecords, length, apiS }) => {
   const [status, setStatus] = useState("");
   const data2 = "";
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const [values, setValues] = useState({
     Nombre: "",
     Apellido: "",
@@ -70,7 +72,7 @@ const ReservaSalon = ({ currentRecords, length, apiS }) => {
       try {
         if (accion === "Actualizar") {
           axios
-            .post(`/admin/patch${apiS}`, values)
+            .post(`${proxy}/admin/patch${apiS}`, values)
             .then((res) => {
               console.log(res.status);
               if (res.data.Status === "Success") {
@@ -82,7 +84,7 @@ const ReservaSalon = ({ currentRecords, length, apiS }) => {
             .catch((err) => toast.error(""));
         } else if (accion === "Insertar") {
           axios
-            .post(`/admin/post${apiS}`, values)
+            .post(`${proxy}/admin/post${apiS}`, values)
             .then((res) => {
               if (res.data.Status === "Success") {
                 toast.success("Apartamento insertado correctamente");
@@ -103,7 +105,7 @@ const ReservaSalon = ({ currentRecords, length, apiS }) => {
     } else if (accion === "Eliminar") {
       try {
         axios
-          .post(`/admin/delete${apiS}`, values)
+          .post(`${proxy}/admin/delete${apiS}`, values)
           .then((res) => {
             if (res.data.Status === "Success") {
               toast.success("Registro eliminado correctamente");

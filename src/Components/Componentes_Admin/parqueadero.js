@@ -19,14 +19,14 @@ library.add(faCheck);
 
 const Parqueadero = ({ item, currentRecords, apiS, data }) => {
   const [accion, setAccion] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
   const [status, setStatus] = useState("");
-  const [eliminarRecord, setEliminarRecord] = useState("");
   const [errors, setError] = useState({});
   const [searchTerm, setSearchTerm] = useState({
     Term: "",
     FilteredAtt: "",
   }); // Estado para el término de búsqueda
+
+  const proxy = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (accion === "Eliminar") {
@@ -76,7 +76,7 @@ const Parqueadero = ({ item, currentRecords, apiS, data }) => {
       try {
         if (accion === "Actualizar") {
           axios
-            .post(`/admin/patch${apiS}`, values)
+            .post(`${proxy}/admin/patch${apiS}`, values)
             .then((res) => {
               console.log(res.status);
               if (res.data.Status === "Success") {
@@ -97,7 +97,7 @@ const Parqueadero = ({ item, currentRecords, apiS, data }) => {
         } else if (accion === "Insertar") {
           console.log("Hellow");
           axios
-            .post(`/admin/post${apiS}`, values)
+            .post(`${proxy}/admin/post${apiS}`, values)
             .then((res) => {
               if (res.data.Status === "Success") {
                 toast.success("Espacio de parqueadero insertado correctamente");
@@ -126,7 +126,7 @@ const Parqueadero = ({ item, currentRecords, apiS, data }) => {
     } else if (accion === "Eliminar") {
       try {
         axios
-          .post(`/admin/delete${apiS}`, values)
+          .post(`${proxy}/admin/delete${apiS}`, values)
           .then((res) => {
             if (res.data.Status === "Success") {
               toast.success("Registro eliminado correctamente");
@@ -160,30 +160,12 @@ const Parqueadero = ({ item, currentRecords, apiS, data }) => {
     );
   };
 
-  const fetchFilteredRecords = async (term, att) => {
-    try {
-      if (term) {
-        const response = await axios.get(
-          `http://localhost:4000/${apiS}?${att}=${term}`
-        );
-        if (response.status === 200) {
-          setFilteredRecords(response.data);
-        }
-      } else {
-        setFilteredRecords(currentRecords);
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Ocurrió un error al filtrar los registros");
-    }
-  };
-
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
       if (searchTerm.FilteredAtt === "numEspacio") {
         const response = await axios.post(
-          `/admin/getParqueaderoEsp1`,
+          `${proxy}/admin/getParqueaderoEsp1`,
           searchTerm
         );
         if (response.status === 200) {
@@ -191,7 +173,7 @@ const Parqueadero = ({ item, currentRecords, apiS, data }) => {
         }
       } else if (searchTerm.FilteredAtt === "tipoEspacio") {
         const response = await axios.post(
-          `/admin/getParqueaderoEsp2`,
+          `${proxy}/admin/getParqueaderoEsp2`,
           searchTerm
         );
         if (response.status === 200) {

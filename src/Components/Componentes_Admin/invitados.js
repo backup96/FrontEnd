@@ -22,7 +22,7 @@ const Invitados = ({ item, currentRecords, apiS, data, data2 }) => {
   const [accion, setAccion] = useState("");
   const [errors, setError] = useState({});
   const [status, setStatus] = useState("");
-  const [eliminarRecord, setEliminarRecord] = useState("");
+  const proxy = process.env.REACT_APP_API_URL;
 
   const [values, setValues] = useState({
     Nombre: "",
@@ -79,7 +79,7 @@ const Invitados = ({ item, currentRecords, apiS, data, data2 }) => {
       try {
         if (accion === "Actualizar") {
           axios
-            .post(`/admin/patch${apiS}`, values)
+            .post(`${proxy}/admin/patch${apiS}`, values)
             .then((res) => {
               console.log(res.status);
               if (res.data.Status === "Success") {
@@ -99,7 +99,7 @@ const Invitados = ({ item, currentRecords, apiS, data, data2 }) => {
         } else if (accion === "Insertar") {
           console.log(values);
           axios
-            .post(`/admin/post${apiS}`, values)
+            .post(`${proxy}/admin/post${apiS}`, values)
             .then((res) => {
               if (res.data.Status === "Success") {
                 toast.success("Invitado insertado correctamente");
@@ -127,7 +127,7 @@ const Invitados = ({ item, currentRecords, apiS, data, data2 }) => {
     } else if (accion === "Eliminar") {
       try {
         axios
-          .post(`/admin/delete${apiS}`, values)
+          .post(`${proxy}/admin/delete${apiS}`, values)
           .then((res) => {
             if (res.data.Status === "Success") {
               toast.success("Registro eliminado correctamente");
@@ -164,7 +164,7 @@ const Invitados = ({ item, currentRecords, apiS, data, data2 }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/admin/getInvitadosEsp`, searchTerm);
+      const response = await axios.post(`${proxy}/admin/getInvitadosEsp`, searchTerm);
       if (response.status === 200) {
         setFilteredRecords(response.data);
       }

@@ -21,6 +21,8 @@ const Vivienda = ({ item, currentRecords, apiS, data }) => {
   const [accion, setAccion] = useState("");
   const [status, setStatus] = useState("");
   const [errors, setError] = useState({});
+  const proxy = process.env.REACT_APP_API_URL;
+
   const data2 = "";
   const [values, setValues] = useState({
     Bloque: "",
@@ -73,7 +75,7 @@ const Vivienda = ({ item, currentRecords, apiS, data }) => {
       try {
         if (accion === "Actualizar") {
           axios
-            .post(`/admin/patch${apiS}`, values)
+            .post(`${proxy}/admin/patch${apiS}`, values)
             .then((res) => {
               console.log(res.status);
               if (res.data.Status === "Success") {
@@ -90,7 +92,7 @@ const Vivienda = ({ item, currentRecords, apiS, data }) => {
             });
         } else if (accion === "Insertar") {
           axios
-            .post(`/admin/post${apiS}`, values)
+            .post(`${proxy}/admin/post${apiS}`, values)
             .then((res) => {
               if (res.data.Status === "Success") {
                 toast.success("Apartamento insertado correctamente");
@@ -118,7 +120,7 @@ const Vivienda = ({ item, currentRecords, apiS, data }) => {
     } else if (accion === "Eliminar") {
       try {
         axios
-          .post(`/admin/delete${apiS}`, values)
+          .post(`${proxy}/admin/delete${apiS}`, values)
           .then((res) => {
             if (res.data.Status === "Success") {
               toast.success("Registro eliminado correctamente");
@@ -157,7 +159,7 @@ const Vivienda = ({ item, currentRecords, apiS, data }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `/admin/getApartamentosEsp`,
+        `${proxy}/admin/getApartamentosEsp`,
         searchTerm
       );
       if (response.status === 200) {

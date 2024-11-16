@@ -23,6 +23,7 @@ const Porteros = ({ item, currentRecords, apiS }) => {
   const [errors, setError] = useState({});
   const [status, setStatus] = useState("");
   const data2 = "";
+  const proxy = process.env.REACT_APP_API_URL;
 
   const [values, setValues] = useState({
     Nombre: "",
@@ -76,7 +77,7 @@ const Porteros = ({ item, currentRecords, apiS }) => {
       try {
         if (accion === "Actualizar") {
           axios
-            .post(`/admin/patch${apiS}`, values)
+            .post(`${proxy}/admin/patch${apiS}`, values)
             .then((res) => {
               console.log(res.status);
               if (res.data.Status === "Success") {
@@ -96,7 +97,7 @@ const Porteros = ({ item, currentRecords, apiS }) => {
             });
         } else if (accion === "Insertar") {
           axios
-            .post(`/admin/post${apiS}`, values)
+            .post(`${proxy}/admin/post${apiS}`, values)
             .then((res) => {
               if (res.status === 200) {
                 toast.success("Portero insertado correctamente");
@@ -125,7 +126,7 @@ const Porteros = ({ item, currentRecords, apiS }) => {
     } else if (accion === "Eliminar") {
       try {
         axios
-          .post(`/admin/delete${apiS}`, values)
+          .post(`${proxy}/admin/delete${apiS}`, values)
           .then((res) => {
             if (res.data.Status === "Success") {
               toast.success("Registro eliminado correctamente");
@@ -163,7 +164,7 @@ const Porteros = ({ item, currentRecords, apiS }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/admin/getPorterosEsp`, searchTerm);
+      const response = await axios.post(`${proxy}/admin/getPorterosEsp`, searchTerm);
       if (response.status === 200) {
         setFilteredRecords(response.data);
       }

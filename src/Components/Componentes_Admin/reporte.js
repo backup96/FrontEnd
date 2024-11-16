@@ -14,10 +14,12 @@ library.add(faSquarePlus);
 const Reporte = ({ item, currentRecords, apiS }) => {
   const [data, setData] = useState([]);
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     async function fetchApartamentos() {
       try {
-        const response = await axios.get(`/admin/getTotalEspRent`);
+        const response = await axios.get(`${proxy}/admin/getTotalEspRent`);
         setData(response.data);
         if (response.data.length === 0) {
           setData([]);

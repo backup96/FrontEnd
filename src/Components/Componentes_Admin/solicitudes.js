@@ -12,10 +12,12 @@ const Solicitudes = ({ currentRecords, length }) => {
     CodigoVivienda: ""
   });
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("/admin/confirmAcc", data)
+      .post(`${proxy}/admin/confirmAcc`, data)
       .then((res) => {
         if (res.status === 200) {
           toast.success("Cuenta creada correctamente");
@@ -29,7 +31,7 @@ const Solicitudes = ({ currentRecords, length }) => {
    const handleDelete = (event) => {
      event.preventDefault();
      axios
-       .post("/admin/cancelAcc", data)
+       .post(`${proxy}/admin/cancelAcc`, data)
        .then((res) => {
          if (res.status === 200) {
            toast.success("Solicitud cancelada correctamente");
@@ -111,7 +113,7 @@ const Solicitudes = ({ currentRecords, length }) => {
                     </button>
                   </form>
                   <a
-                    href={`http://localhost:8081/admin/descargar/${record.idSolicitud}`}
+                    href={`${proxy}/admin/descargar/${record.idSolicitud}`}
                     download={`certificado ${record.Nombre} ${record.Apellido}`}
                     className="btn mx-2 my-2 bg-primary-subtle border border-primary text-primary"
                   >

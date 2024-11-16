@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 const Info = ({ currentRecords, apiS, data }) => {
+  const proxy = process.env.REACT_APP_API_URL;
   const [text, setText] = useState({
     text: "",
   });
@@ -32,7 +33,7 @@ const Info = ({ currentRecords, apiS, data }) => {
   const handleSend = (data) => {
     console.log(data);
     axios
-      .post("/admin/sendInformacion", data)
+      .post(`${proxy}/admin/sendInformacion`, data)
       .then((res) => {
         if (res.status === 200) {
           console.log("Correos enviados");
@@ -46,7 +47,7 @@ const Info = ({ currentRecords, apiS, data }) => {
   const handleSend2 = (data) => {
     console.log(data);
     axios
-      .post("/admin/sendCircularInformacion", data)
+      .post(`${proxy}/admin/sendCircularInformacion`, data)
       .then((res) => {
         if (res.status === 200) {
           console.log("Circulares enviados");
