@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import "./Pages/auth/portero/InvitadoDetalle.css";
+import "./Pages/auth${proxy}/portero/InvitadoDetalle.css";
 
 const UserContext = createContext();
 
@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [countdown, setCountdown] = useState([]);
-
+  const proxy = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown((prevTimers) =>
@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
             if (timer.isRunning && !timer.isPaused && timer.countdown > 0) {
               if (timer.countdown <= 600 && timer.sendAlt === 0) {
                 axios
-                  .post(`/portero/sendInformacion`, {
+                  .post(`${proxy}/portero/sendInformacion`, {
                     Correo: timer.email,
                     Placa: timer.placa,
                     Esp: timer.parq,
@@ -142,26 +142,26 @@ export const UserProvider = ({ children }) => {
   const totalPay = (initTime, acum, countdown, email, placa, parq) => {
     var total;
     total = initTime + (acum * 600 - countdown);
-     axios
-       .post(`/portero/sendTicket`, {
-         Correo: email,
-         Placa: placa,
-         Esp: parq,
-         Total: total,
-         Time: formatTime(total)
-       })
-       .then((res) => {
-         console.log(res.status);
-         if (res.data.Status === "Success") {
-           console.log("Que bien");
-         }
-       })
-       .catch((err) => {
-         console.log(err.response.data.Error);
-         if (err.response.data.Error === "ER_ROW_IS_REFERENCED_2") {
-           console.log("Que mal");
-         }
-       });
+    axios
+      .post(`${proxy}/portero/sendTicket`, {
+        Correo: email,
+        Placa: placa,
+        Esp: parq,
+        Total: total,
+        Time: formatTime(total),
+      })
+      .then((res) => {
+        console.log(res.status);
+        if (res.data.Status === "Success") {
+          console.log("Que bien");
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.data.Error);
+        if (err.response.data.Error === "ER_ROW_IS_REFERENCED_2") {
+          console.log("Que mal");
+        }
+      });
   };
 
   const handleResetCountdown = (invitado) => {
