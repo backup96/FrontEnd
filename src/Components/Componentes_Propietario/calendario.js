@@ -17,6 +17,8 @@ const Calendario = ({ name }) => {
   const [idProp, setIdprop] = useState({
     idProp: ""
   });
+
+   const proxy = process.env.REACT_APP_API_URL;
   
   const [formData, setFormData] = useState({
     idPropietario: "",
@@ -41,7 +43,11 @@ const Calendario = ({ name }) => {
 
   useEffect(() => {
     axios
-      .post(`/public/getPropietarioEsp`, nameTerm)
+      .post(
+        `
+${proxy}/public/getPropietarioEsp`,
+        nameTerm
+      )
       .then((res) => {
         if (res.status === 200) {
           setFormData((prevProp) => ({
@@ -61,7 +67,8 @@ const Calendario = ({ name }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8081/citas_salon_comunal?numDocumento=${currentUserDoc}`
+        `
+${proxy}/citas_salon_comunal?numDocumento=${currentUserDoc}`
       )
       .then((res) => {
         if (res.status === 200) {
@@ -74,7 +81,8 @@ const Calendario = ({ name }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8081/citas_salon_comunal?numDocumento=${currentUserDoc}`
+        `
+${proxy}/citas_salon_comunal?numDocumento=${currentUserDoc}`
       )
       .then((res) => {
         if (res.status === 200) {
@@ -242,7 +250,7 @@ const Calendario = ({ name }) => {
     }
 
     axios
-      .post("http://localhost:8081/citas_salon_comunal", formData)
+      .post(`${proxy}/citas_salon_comunal`, formData)
       .then((response) => {
         if (!toast.isActive(toastId.current)) {
           toastId.current = toast.success("¡Reserva realizada con éxito!");

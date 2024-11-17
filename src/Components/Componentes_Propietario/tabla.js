@@ -17,11 +17,12 @@ library.add(faSquarePlus, faAnglesLeft, faAnglesRight, faMagnifyingGlass);
 const Tabla = ({ apiS, name, fetchEspacios }) => {
   const [currentPageMoto, setCurrentPageMoto] = useState(1);
   const [currentPageCarro, setCurrentPageCarro] = useState(1);
-  const { user, setUser } = useUser();
   const [searchTermMoto, setSearchTermMoto] = useState("");
   const [searchTermCarro, setSearchTermCarro] = useState("");
   const [perfilData, setPerfilData] = useState([]);
   const [rentedSpaces, setRentedSpaces] = useState([]);
+
+   const proxy = process.env.REACT_APP_API_URL;
 
 
   const [values, setValues] = useState({
@@ -38,8 +39,10 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
   useEffect(() => {
     const fetchEspacios = () => {
       Promise.all([
-        axios.get(`http://localhost:8081/espacio_parqueadero?tipoEspacio=Moto`),
-        axios.get(`http://localhost:8081/espacio_parqueadero?tipoEspacio=Carro`)
+        axios.get(`
+${proxy}/espacio_parqueadero?tipoEspacio=Moto`),
+        axios.get(`
+${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
       ])
       .then(([responseMoto, responseCarro]) => {
         setDataMoto(responseMoto.data.data || []);
@@ -57,10 +60,7 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:8081/vista_perfil",
-          { name }
-        );
+        const response = await axios.post(`${proxy}/vista_perfil`, { name });
         setPerfilData(response.data[0]);
         console.log(response.data[0].numDocumento);
       } catch (error) {
@@ -80,8 +80,10 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
     // Vuelve a cargar todos los datos
     try {
       const [responseMoto, responseCarro] = await Promise.all([
-        axios.get(`http://localhost:8081/espacio_parqueadero?tipoEspacio=Moto`),
-        axios.get(`http://localhost:8081/espacio_parqueadero?tipoEspacio=Carro`)
+        axios.get(`
+${proxy}/espacio_parqueadero?tipoEspacio=Moto`),
+        axios.get(`
+${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
       ]);
   
       setDataMoto(responseMoto.data.data || []);
@@ -161,7 +163,8 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
     try {
       if (term) {
         const response = await axios.get(
-          `http://localhost:8081/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Moto`
+          `
+${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Moto`
         );
         console.log("Datos Moto Filtrados:", response.data.data);
         if (response.data.status === 'success' && response.data.data.length > 0) {
@@ -173,7 +176,8 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
           setDataMoto([]); // Limpia los datos si no hay resultados
         }
       } else {
-        const responseMoto = await axios.get(`http://localhost:8081/espacio_parqueadero?tipoEspacio=Moto`);
+        const responseMoto = await axios.get(`
+${proxy}/espacio_parqueadero?tipoEspacio=Moto`);
         setDataMoto(responseMoto.data.data);
       }
     } catch (error) {
@@ -185,7 +189,8 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
   const fetchFilteredRecordsCarro = (term) => {
     if (term) {
       axios
-        .get(`http://localhost:8081/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Carro`)
+        .get(`
+${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Carro`)
         .then((response) => {
           console.log("Datos Carro Filtrados:", response.data.data);
           if (response.data.status === 'success' && response.data.data.length > 0) {
@@ -203,7 +208,8 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
         });
     } else {
       axios
-        .get(`http://localhost:8081/espacio_parqueadero?tipoEspacio=Carro`)
+        .get(`
+${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
         .then((responseCarro) => {
           setDataCarro(responseCarro.data.data);
         })

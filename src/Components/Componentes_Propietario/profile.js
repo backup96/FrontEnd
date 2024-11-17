@@ -17,13 +17,15 @@ const Profile = ({ name }) => {
     correo: "",
     nombreUsuario: "",
   });
+   const proxy = process.env.REACT_APP_API_URL;
+
   const [showModal, setShowModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.post("http://localhost:8081/vista_perfil", { name });
+        const response = await axios.post(`${proxy}/vista_perfil`, { name });
         setPerfilData(response.data);
         setEditableData({
           telefono: response.data[0].telefono || "",
@@ -60,7 +62,7 @@ const Profile = ({ name }) => {
     
     setIsUpdating(true);
     try {
-      const response = await axios.post("http://localhost:8081/actualizar_perfil", {
+      const response = await axios.post(`${proxy}/actualizar_perfil`, {
         telefono: editableData.telefono,
         correo: editableData.correo,
         nombreUsuario: perfilData[0].nombreUsuario 
@@ -111,7 +113,7 @@ const Profile = ({ name }) => {
     }
   
     try {
-      const response = await axios.post("http://localhost:8081/cambiar_contrasena", {
+      const response = await axios.post(`${proxy}/cambiar_contrasena`, {
         newPassword,
         nombreUsuario: perfilData[0].nombreUsuario,
       });
