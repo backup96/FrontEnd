@@ -12,6 +12,8 @@ import { useParams } from "react-router-dom";
 const ResetPass = () => {
   const token = useParams();
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const [values, setValues] = useState({
     Pass: "",
     RecPass: "",
@@ -29,14 +31,14 @@ const ResetPass = () => {
       validationErrors.Valid === "valid"
     ) {
       axios
-        .post("/public/reset-password", values)
+        .post(`${proxy}/public/reset-password`, values)
         .then((res) => {
           if (res.status === 200) {
             toast.success("Contraseña actualizada correctamente");
           }
         })
         .catch((err) =>
-          toast.error("Vencio el link de recuperación de contraseña",err)
+          toast.error("Vencio el link de recuperación de contraseña", err)
         );
     }
   };

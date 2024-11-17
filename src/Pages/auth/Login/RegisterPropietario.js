@@ -14,6 +14,8 @@ library.add(faCheck);
 const RegisterPropietario = () => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
@@ -35,7 +37,7 @@ const RegisterPropietario = () => {
     async function fetchApartamentos() {
       try {
         const response = await axios.get(
-          `/public/Apartamentos`
+          `${proxy}/public/Apartamentos`
         );
         setDatos(response.data);
         if (response.data.length === 0) {

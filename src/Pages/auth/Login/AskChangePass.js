@@ -13,6 +13,8 @@ const AskChangePass = () => {
     Correo: "",
   });
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   const [errors, setError] = useState({});
 
   const handleSubmit = (event) => {
@@ -24,14 +26,16 @@ const AskChangePass = () => {
       validationErrors.Valid === "valid"
     ) {
       axios
-        .post("/public/RecPass", values)
+        .post(`${proxy}/public/RecPass`, values)
         .then((res) => {
           if (res.status === 200) {
             toast.success(
               "Revisa tu correo, hemos enviado un link para el cambio de contraseña"
             );
           } else {
-            toast.error("Ocurrio un error al intentar enviar el correo de recuperación");
+            toast.error(
+              "Ocurrio un error al intentar enviar el correo de recuperación"
+            );
           }
         })
         .catch((err) => console.log(err));

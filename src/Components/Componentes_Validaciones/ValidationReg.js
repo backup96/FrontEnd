@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 const ValidationReg = (values, data, data2, apiS) => {
   const getCode = data.some(
     (item) => item.codigoVivienda === parseInt(values.CodigoVivienda, 10)
