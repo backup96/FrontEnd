@@ -76,7 +76,7 @@ const RegisterPropietario = () => {
       // Agregar el archivo al FormData
       formData.append("Archivo", values.Archivo);
       axios
-        .post("/propietario/register", formData, {
+        .post(`${proxy}/propietario/register`, formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Header que indica el envio de datos planos y Archivos
           },
