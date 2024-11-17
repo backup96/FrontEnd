@@ -16,10 +16,12 @@ const Parqueadero = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 7;
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchParqueaderos = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/espacios_parqueadero");
+        const response = await axios.get(`${proxy}/espacios_parqueadero`);
         setCurrentRecords(response.data);
         setFilteredRecords(response.data);
       } catch (error) {

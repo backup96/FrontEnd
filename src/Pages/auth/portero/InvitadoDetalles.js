@@ -33,10 +33,12 @@ const InvitadoDetalle = ( id ) => {
     countdown,
   } = useUser();
 
+  const proxy = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchGuestDetails = async () => {
       try {
-        const response = await axios.post(`/admin/getInvitadosEsp`, {
+        const response = await axios.post(`${proxy}/admin/getInvitadosEsp`, {
           Term: invitado,
         });
         setGuest(response.data);

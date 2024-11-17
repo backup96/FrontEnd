@@ -11,6 +11,7 @@ const Propietario = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
   const [filteredRecords, setFilteredRecords] = useState([]);
   const [currentRecords, setCurrentRecords] = useState([]);
+  const proxy = process.env.REACT_APP_API_URL;
   
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +21,7 @@ const Propietario = () => {
     // Función para obtener los registros de la vista propietarios portero
     const fetchPropietarios = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/consultapropietarios");
+        const response = await axios.get(`${proxy}/consultapropietarios`);
         setCurrentRecords(response.data);
         setFilteredRecords(response.data);
       } catch (error) {

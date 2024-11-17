@@ -14,13 +14,14 @@ const Tabla = ({ item, apiS }) => {
   const [data, setDatos] = useState([]);
   const [dataApart, setDatosApart] = useState([]);
   const [dataEsp, setdataEsp] = useState([]);
+  const proxy = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchApartamentos = async () => {
       try {
         const url = apiS === "Informacion" || apiS === "Reporte"
           ? "http://localhost:4000/Propietarios"
-          : `/admin/get${apiS}`;
+          : `${proxy}/admin/get${apiS}`;
         const response = await axios.get(url);
         setDatos(response.data);
       } catch (error) {
@@ -33,7 +34,7 @@ const Tabla = ({ item, apiS }) => {
   useEffect(() => {
     const fetchDataApartamentos = async () => {
       try {
-        const response = await axios.get(`/public/Apartamentos`);
+        const response = await axios.get(`${proxy}/public/Apartamentos`);
         setDatosApart(response.data);
       } catch (error) {
         console.error("Error al obtener los apartamentos:", error);
@@ -45,7 +46,7 @@ const Tabla = ({ item, apiS }) => {
   useEffect(() => {
     const fetchDataEspacios = async () => {
       try {
-        const response = await axios.get(`/admin/getParqueadero`);
+        const response = await axios.get(`${proxy}/admin/getParqueadero`);
         setdataEsp(response.data);
       } catch (error) {
         console.error("Error al obtener los espacios de parqueo:", error);

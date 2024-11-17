@@ -6,11 +6,6 @@ import { NavBar } from "../../../Components/Componentes_Portero/navBar";
 
 /* Componente de clase MainAdmin */
 export function MainPortero() {
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/LoginPortero");
-  //   }
-  // });
   return (
     <>
       <NavBar />
