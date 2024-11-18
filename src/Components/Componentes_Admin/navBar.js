@@ -36,13 +36,11 @@ export function NavBar() {
     const cookie = await axios.get(`${proxy}/public`, {
       withCredentials: true,
     });
-    console.log(cookie)
       if (cookie.data.Status === "Success") {
         setName(cookie.data.nombreUsuario);
       } else {
         navigate("/");
       }
-      console.log(cookie, "Hola")
   };
 
   useEffect(() => {getCookie(); }, [name]);
