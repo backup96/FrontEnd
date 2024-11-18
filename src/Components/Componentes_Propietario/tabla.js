@@ -133,7 +133,7 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
 
   const rentSpace = (idParqueadero, tipoEspacio) => {
     axios
-      .post(`/propietario/Rent`, { idParqueadero, numDocumento: perfilData.numDocumento, tipoEspacio })
+      .post(`${proxy}/propietario/Rent`, { idParqueadero, numDocumento: perfilData.numDocumento, tipoEspacio })
       .then((res) => {
         if (res.data.Status === "Success") {
           toast.success("Espacio rentado correctamente");
@@ -252,25 +252,25 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                     value={searchTermMoto}
                     onChange={(e) => setSearchTermMoto(e.target.value)}
                   />
-                   <button
-          className="btn btn-success py-1"
-          type="submit"
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} /> {/* Icono de lupa */}
-        </button>
-        <button
-          className="btn btn-danger py-1 ms-2" // Añadir un margen a la izquierda para separar
-          type="button" // Cambiar a type="button" para evitar que envíe el formulario
-          onClick={handleReset} // Llamar a la función de resetear
-        >
-          <FontAwesomeIcon icon="fa-solid fa-xmark" /> {/* Icono de X */}
-        </button>
+                  <button className="btn btn-success py-1" type="submit">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />{" "}
+                    {/* Icono de lupa */}
+                  </button>
+                  <button
+                    className="btn btn-danger py-1 ms-2" // Añadir un margen a la izquierda para separar
+                    type="button" // Cambiar a type="button" para evitar que envíe el formulario
+                    onClick={handleReset} // Llamar a la función de resetear
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-xmark" />{" "}
+                    {/* Icono de X */}
+                  </button>
                 </div>
               </form>
               <h2 className="text-center">Moto</h2>
+              {console.log(hasRentedMoto, hasRentedCarro)}
               {hasRentedMoto || hasRentedCarro ? (
                 <p className="text-center text-danger">
-                 Ya has rentado un espacio. Excediste el limite de renta.
+                  Ya has rentado un espacio. Excediste el limite de renta.
                 </p>
               ) : (
                 <>
@@ -280,15 +280,17 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                         key={record.numEspacio}
                         className="d-flex flex-column border border-primary rounded-4 w-25 p-2"
                       >
-                        <span className="fs-3 fw-bolder">{record.numEspacio}</span>
-                      <button
-                        type="button"
-                        className="btn bg-success btn-sm p-1"
-                        onClick={() => rentSpace(record.numEspacio)}
-                        disabled={hasRentedMoto}
-                      >
-                        Rentar
-                      </button>
+                        <span className="fs-3 fw-bolder">
+                          {record.numEspacio}
+                        </span>
+                        <button
+                          type="button"
+                          className="btn bg-success btn-sm p-1"
+                          onClick={() => rentSpace(record.numEspacio)}
+                          disabled={hasRentedMoto}
+                        >
+                          Rentar
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -398,19 +400,18 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                     value={searchTermCarro}
                     onChange={(e) => setSearchTermCarro(e.target.value)}
                   />
+                  <button className="btn btn-success py-1" type="submit">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />{" "}
+                    {/* Icono de lupa */}
+                  </button>
                   <button
-          className="btn btn-success py-1"
-          type="submit"
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} /> {/* Icono de lupa */}
-        </button>
-        <button
-          className="btn btn-danger py-1 ms-2" // Añadir un margen a la izquierda para separar
-          type="button" // Cambiar a type="button" para evitar que envíe el formulario
-          onClick={handleReset} // Llamar a la función de resetear
-        >
-          <FontAwesomeIcon icon="fa-solid fa-xmark" /> {/* Icono de X */}
-        </button>
+                    className="btn btn-danger py-1 ms-2" // Añadir un margen a la izquierda para separar
+                    type="button" // Cambiar a type="button" para evitar que envíe el formulario
+                    onClick={handleReset} // Llamar a la función de resetear
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-xmark" />{" "}
+                    {/* Icono de X */}
+                  </button>
                 </div>
               </form>
               <h2 className="text-center">Carro</h2>
@@ -430,13 +431,13 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                           {record.numEspacio}
                         </span>
                         <button
-                        type="button"
-                        className="btn bg-success btn-sm p-1"
-                        onClick={() => rentSpace(record.numEspacio)}
-                        disabled={hasRentedCarro}
-                      >
-                        Rentar
-                      </button>
+                          type="button"
+                          className="btn bg-success btn-sm p-1"
+                          onClick={() => rentSpace(record.numEspacio)}
+                          disabled={hasRentedCarro}
+                        >
+                          Rentar
+                        </button>
                       </div>
                     ))}
                   </div>
