@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useUser } from "../../userContext";
 import Calendario from "./calendario"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core"; // Importación añadida
 import { faSquarePlus, faAnglesLeft, faAnglesRight, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,14 +19,22 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
   const [searchTermCarro, setSearchTermCarro] = useState("");
   const [perfilData, setPerfilData] = useState([]);
   const [rentedSpaces, setRentedSpaces] = useState([]);
+const [accountData, setAccountData] = useState([]);
 
    const proxy = process.env.REACT_APP_API_URL;
+useEffect(() => {
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.post(`${proxy}/vista_perfil`, { name });
+      setAccountData(response.data);
+    } catch (error) {
+      toast.error("Error al obtener los datos");
+    }
+  };
 
+  fetchProfile();
+}, [name]); 
 
-  const [values, setValues] = useState({
-    idParqueadero: "",
-    numDocumento: ""
-  })
 
   const recordsPerPage = 12;
 
@@ -267,7 +273,7 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                 </div>
               </form>
               <h2 className="text-center">Moto</h2>
-              {console.log(currentRecordsMoto)}
+              {console.log(accountData)}
               {hasRentedMoto || hasRentedCarro ? (
                 <p className="text-center text-danger">
                   Ya has rentado un espacio. Excediste el limite de renta.
