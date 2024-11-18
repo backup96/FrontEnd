@@ -26,6 +26,7 @@ useEffect(() => {
   const fetchProfile = async () => {
     try {
       const response = await axios.post(`${proxy}/vista_perfil`, { name });
+      console.log(response.data)
       setAccountData(response.data);
     } catch (error) {
       toast.error("Error al obtener los datos");
@@ -268,7 +269,6 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                 </div>
               </form>
               <h2 className="text-center">Moto</h2>
-              {console.log(perfilData, "hola")}
               {accountData[0] ? (
                 <p className="text-center text-danger">
                   Ya has rentado un espacio. Excediste el limite de renta.
