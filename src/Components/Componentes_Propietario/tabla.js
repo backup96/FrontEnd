@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Calendario from "./calendario"; 
+import Calendario from "./calendario";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core"; // Importación añadida
-import { faSquarePlus, faAnglesLeft, faAnglesRight, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSquarePlus,
+  faAnglesLeft,
+  faAnglesRight,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 /* Añadir iconos a la librería */
 library.add(faSquarePlus, faAnglesLeft, faAnglesRight, faMagnifyingGlass);
@@ -19,29 +23,28 @@ const Tabla = ({ apiS, name, fetchEspacios }) => {
   const [searchTermCarro, setSearchTermCarro] = useState("");
   const [perfilData, setPerfilData] = useState([]);
   const [rentedSpaces, setRentedSpaces] = useState([]);
-const [accountData, setAccountData] = useState([]);
+  const [accountData, setAccountData] = useState([]);
 
-   const proxy = process.env.REACT_APP_API_URL;
-useEffect(() => {
-  const fetchProfile = async () => {
-    try {
-      const response = await axios.post(`${proxy}/vista_perfil`, { name });
-      console.log(response.data)
-      setAccountData(response.data);
-    } catch (error) {
-      toast.error("Error al obtener los datos");
-    }
-  };
+  const proxy = process.env.REACT_APP_API_URL;
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.post(`${proxy}/vista_perfil`, { name });
+        if (response.data.length !== 0) {
+          setAccountData(response.data[0].idParqueaderoFk);
+        }
+      } catch (error) {
+        toast.error("Error al obtener los datos");
+      }
+    };
 
-  fetchProfile();
-}, [name]); 
-
+    fetchProfile();
+  }, [name]);
 
   const recordsPerPage = 12;
 
   const [dataMoto, setDataMoto] = useState([]);
   const [dataCarro, setDataCarro] = useState([]);
-
 
   useEffect(() => {
     const fetchEspacios = () => {
@@ -49,18 +52,18 @@ useEffect(() => {
         axios.get(`
 ${proxy}/espacio_parqueadero?tipoEspacio=Moto`),
         axios.get(`
-${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
+${proxy}/espacio_parqueadero?tipoEspacio=Carro`),
       ])
-      .then(([responseMoto, responseCarro]) => {
-        setDataMoto(responseMoto.data.data || []);
-        setDataCarro(responseCarro.data.data || []);
-      })
-      .catch((error) => {
-        console.error("Error al obtener los datos:", error);
-        toast.error("Error al obtener los datos.");
-      });
+        .then(([responseMoto, responseCarro]) => {
+          setDataMoto(responseMoto.data.data || []);
+          setDataCarro(responseCarro.data.data || []);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los datos:", error);
+          toast.error("Error al obtener los datos.");
+        });
     };
-  
+
     fetchEspacios();
   }, [apiS]);
 
@@ -70,7 +73,7 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
         const response = await axios.post(`${proxy}/vista_perfil`, { name });
         setPerfilData(response.data[0]);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
 
@@ -82,16 +85,16 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
     setSearchTermCarro("");
     setCurrentPageMoto(1);
     setCurrentPageCarro(1);
-  
+
     // Vuelve a cargar todos los datos
     try {
       const [responseMoto, responseCarro] = await Promise.all([
         axios.get(`
 ${proxy}/espacio_parqueadero?tipoEspacio=Moto`),
         axios.get(`
-${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
+${proxy}/espacio_parqueadero?tipoEspacio=Carro`),
       ]);
-  
+
       setDataMoto(responseMoto.data.data || []);
       setDataCarro(responseCarro.data.data || []);
     } catch (error) {
@@ -107,20 +110,20 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
   const indexOfFirstRecordCarro = indexOfLastRecordCarro - recordsPerPage;
 
   const currentRecordsMoto = dataMoto
-    .filter((record) => record.estado === 'Disponible')
+    .filter((record) => record.estado === "Disponible")
     .slice(indexOfFirstRecordMoto, indexOfLastRecordMoto);
 
   const totalPagesMoto = Math.ceil(
-    dataMoto.filter((record) => record.estado === 'Disponible').length /
+    dataMoto.filter((record) => record.estado === "Disponible").length /
       recordsPerPage
   );
 
   const currentRecordsCarro = dataCarro
-    .filter((record) => record.estado === 'Disponible')
+    .filter((record) => record.estado === "Disponible")
     .slice(indexOfFirstRecordCarro, indexOfLastRecordCarro);
 
   const totalPagesCarro = Math.ceil(
-    dataCarro.filter((record) => record.estado === 'Disponible').length /
+    dataCarro.filter((record) => record.estado === "Disponible").length /
       recordsPerPage
   );
 
@@ -134,12 +137,20 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
     setCurrentPageCarro(pageNumber);
   };
 
-  const hasRentedMoto = rentedSpaces.some((space) => dataMoto.some((record) => record.numEspacio === space));
-  const hasRentedCarro = rentedSpaces.some((space) => dataCarro.some((record) => record.numEspacio === space));
+  const hasRentedMoto = rentedSpaces.some((space) =>
+    dataMoto.some((record) => record.numEspacio === space)
+  );
+  const hasRentedCarro = rentedSpaces.some((space) =>
+    dataCarro.some((record) => record.numEspacio === space)
+  );
 
   const rentSpace = (idParqueadero, tipoEspacio) => {
     axios
-      .post(`${proxy}/propietario/Rent`, { idParqueadero, numDocumento: perfilData.numDocumento, tipoEspacio })
+      .post(`${proxy}/propietario/Rent`, {
+        idParqueadero,
+        numDocumento: perfilData.numDocumento,
+        tipoEspacio,
+      })
       .then((res) => {
         if (res.data.Status === "Success") {
           toast.success("Espacio rentado correctamente");
@@ -150,8 +161,6 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
         console.error("Ocurrió un error:", err);
       });
   };
-
-
 
   const handleSearchMoto = (e) => {
     e.preventDefault();
@@ -170,8 +179,13 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
           `
 ${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Moto`
         );
-        if (response.data.status === 'success' && response.data.data.length > 0) {
-          const filteredData = response.data.data.filter(record => record.numEspacio === parseInt(term));
+        if (
+          response.data.status === "success" &&
+          response.data.data.length > 0
+        ) {
+          const filteredData = response.data.data.filter(
+            (record) => record.numEspacio === parseInt(term)
+          );
           setDataMoto(filteredData);
           setCurrentPageMoto(1);
         } else {
@@ -192,15 +206,24 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Moto`);
   const fetchFilteredRecordsCarro = (term) => {
     if (term) {
       axios
-        .get(`
-${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Carro`)
+        .get(
+          `
+${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Carro`
+        )
         .then((response) => {
-          if (response.data.status === 'success' && response.data.data.length > 0) {
-            const filteredData = response.data.data.filter(record => record.numEspacio === parseInt(term));
+          if (
+            response.data.status === "success" &&
+            response.data.data.length > 0
+          ) {
+            const filteredData = response.data.data.filter(
+              (record) => record.numEspacio === parseInt(term)
+            );
             setDataCarro(filteredData);
             setCurrentPageCarro(1);
           } else {
-            toast.warning("No se encontraron espacios de carro con ese número.");
+            toast.warning(
+              "No se encontraron espacios de carro con ese número."
+            );
             setDataCarro([]); // Limpia los datos si no hay resultados
           }
         })
@@ -210,8 +233,10 @@ ${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Carro`)
         });
     } else {
       axios
-        .get(`
-${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
+        .get(
+          `
+${proxy}/espacio_parqueadero?tipoEspacio=Carro`
+        )
         .then((responseCarro) => {
           setDataCarro(responseCarro.data.data);
         })
@@ -221,7 +246,6 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
         });
     }
   };
-  
 
   return (
     <div className="w-100 h-100">
@@ -269,7 +293,8 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                 </div>
               </form>
               <h2 className="text-center">Moto</h2>
-              {accountData[0] ? (
+              {console.log(accountData)}
+              {accountData ? (
                 <p className="text-center text-danger">
                   Ya has rentado un espacio. Excediste el limite de renta.
                 </p>
