@@ -440,11 +440,7 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`
                 </div>
               </form>
               <h2 className="text-center">Carro</h2>
-              {accountData[0] ? (
-                <p className="text-center text-danger">
-                  Ya has rentado un espacio. Excediste el limite de renta.
-                </p>
-              ) : (
+              {!accountData ? (
                 <>
                   <div className="d-flex flex-wrap mt-3">
                     {currentRecordsCarro.map((record) => (
@@ -545,6 +541,10 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`
                     </div>
                   </div>
                 </>
+              ) : (
+                <p className="text-center text-danger">
+                  Ya has rentado un espacio. Excediste el limite de renta.
+                </p>
               )}
             </div>
           </div>
