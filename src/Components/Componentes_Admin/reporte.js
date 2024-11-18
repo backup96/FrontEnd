@@ -126,7 +126,7 @@ const Reporte = ({ item, currentRecords, apiS }) => {
             <tr>
               <th colSpan="2">Numero de parqeuaderos rentados</th>
               <th rowSpan="1" colSpan="1">
-                {/* {data} */}
+                {data[0].total}
               </th>
             </tr>
           </tfoot>
