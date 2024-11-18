@@ -86,6 +86,7 @@ const Reporte = ({ item, currentRecords, apiS }) => {
 
   return (
     <div className="d-flex flex-column align-items-end">
+      {console.log(data)}
       <div
         className="border border-primary rounded overflow-auto"
         style={{ width: "100%", height: "500px" }}
