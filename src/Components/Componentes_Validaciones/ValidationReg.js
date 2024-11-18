@@ -101,7 +101,8 @@ const ValidationReg = (values, data, data2, apiS) => {
       errors.CodigoVivienda = "Vivienda no registrada en el sistema";
     } else errors.Valid = "valid";
     console.log(values.EspacioParqueadero);
-    if (!getEsp) {
+
+    if (!getEsp && values.EspacioParqueadero) {
       errors.EspacioParqueadero = "Espacio no registrado en el sistema";
     } else errors.Valid = "valid";
   } 
