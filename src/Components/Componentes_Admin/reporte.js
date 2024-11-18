@@ -73,10 +73,8 @@ const Reporte = ({ item, currentRecords, apiS }) => {
       doc.text(item.Apartamento_FK.toString(), 150, y);
       y += 20; // Incrementar `y` para la siguiente línea
     });
-    data.forEach((item) => {
       doc.text("Total parqeuaderos rentados:", 70, y);
-      doc.text(item.total.toString(), 150, y);
-    });
+      doc.text(data, 150, y);
 
     y += 10;
 
