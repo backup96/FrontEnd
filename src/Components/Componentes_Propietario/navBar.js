@@ -38,7 +38,6 @@ export function NavBar() {
    } else {
      navigate("/");
    }
-   console.log(cookie, "Hola");
  };
 
  useEffect(() => {

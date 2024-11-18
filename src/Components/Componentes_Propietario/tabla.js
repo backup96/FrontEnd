@@ -68,7 +68,6 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
       try {
         const response = await axios.post(`${proxy}/vista_perfil`, { name });
         setPerfilData(response.data[0]);
-        console.log(response.data[0].numDocumento);
       } catch (error) {
         console.log(error)
       }
@@ -155,13 +154,11 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
 
   const handleSearchMoto = (e) => {
     e.preventDefault();
-    console.log("Buscando Moto:", searchTermMoto); // Debugging
     fetchFilteredRecordsMoto(searchTermMoto);
   };
 
   const handleSearchCarro = (e) => {
     e.preventDefault();
-    console.log("Buscando Carro:", searchTermCarro); // Debugging
     fetchFilteredRecordsCarro(searchTermCarro);
   };
 
@@ -172,7 +169,6 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
           `
 ${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Moto`
         );
-        console.log("Datos Moto Filtrados:", response.data.data);
         if (response.data.status === 'success' && response.data.data.length > 0) {
           const filteredData = response.data.data.filter(record => record.numEspacio === parseInt(term));
           setDataMoto(filteredData);
@@ -198,7 +194,6 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Moto`);
         .get(`
 ${proxy}/espacio_parqueadero?numEspacio=${term}&tipoEspacio=Carro`)
         .then((response) => {
-          console.log("Datos Carro Filtrados:", response.data.data);
           if (response.data.status === 'success' && response.data.data.length > 0) {
             const filteredData = response.data.data.filter(record => record.numEspacio === parseInt(term));
             setDataCarro(filteredData);
