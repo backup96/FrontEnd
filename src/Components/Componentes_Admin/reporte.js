@@ -20,7 +20,7 @@ const Reporte = ({ item, currentRecords, apiS }) => {
     async function fetchApartamentos() {
       try {
         const response = await axios.get(`${proxy}/admin/getTotalEspRent`);
-        setData(response.data);
+        setData(response.data[0].total);
         if (response.data.length === 0) {
           setData([]);
         }
