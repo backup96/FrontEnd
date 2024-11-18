@@ -267,7 +267,7 @@ ${proxy}/espacio_parqueadero?tipoEspacio=Carro`)
                 </div>
               </form>
               <h2 className="text-center">Moto</h2>
-              {console.log(hasRentedMoto, hasRentedCarro)}
+              {console.log(rentedSpaces)}
               {hasRentedMoto || hasRentedCarro ? (
                 <p className="text-center text-danger">
                   Ya has rentado un espacio. Excediste el limite de renta.
