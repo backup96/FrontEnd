@@ -38,6 +38,7 @@ const Info = ({ currentRecords, apiS, data }) => {
   const enviar = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("file", text.file)
     currentRecords.forEach((item) => {
       formData.append(
         "recipients[]",
