@@ -37,16 +37,18 @@ const Info = ({ currentRecords, apiS, data }) => {
 
   const enviar = async (e) => {
     e.preventDefault();
-    currentRecords.map((item) =>
-      handleSend({
-        correo: item.correo,
-        nombre: `${item.nombre} ${item.apellido}`,
-        codVivi: item.codigoVivienda,
-        codPer: item.numDocumento,
-        numPar: item.idParqueaderoFk,
-        text: text.text,
-        file: text.file
-      })
+    const formData = new FormData();
+    currentRecords.map(
+      (item) => (
+        formData.append("correo", item.correo),
+        formData.append("nombre", `${item.nombre} ${item.apellido}`),
+        formData.append("codVivi", item.codigoVivienda),
+        formData.append("codPer", item.numDocumento),
+        formData.append("numPar", item.idParqueaderoFk),
+        formData.append("text", text.text),
+        formData.append("file", text.file),
+        handleSend(formData)
+      )
     );
     toast.success("Recibos enviados satisfactoriamente");
   };
