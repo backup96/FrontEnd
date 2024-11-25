@@ -160,7 +160,7 @@ ${proxy}/admin/getParqueadero`);
               />
             ) : null}
 
-            {apiS !== "Reporte" ? (
+            {/* {apiS !== "Reporte" ? (
               <div className="row">
                 <div className="col-sm-12 col-md-5">
                   <div
@@ -310,7 +310,7 @@ ${proxy}/admin/getParqueadero`);
                   </div>
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
       </div>
