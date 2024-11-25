@@ -59,7 +59,7 @@ const Info = ({ currentRecords, apiS, data }) => {
   };
   return (
     <div className="d-flex flex-column w-100 h-50">
-      <ToastContainer />;
+      <ToastContainer />
       <div className=" d-flex flex-column justify-content-end">
         <div className="d-flex flex-column justify-content-start">
           <label
@@ -89,79 +89,17 @@ const Info = ({ currentRecords, apiS, data }) => {
               type="submit"
               className="btn mx-2 bg-primary-subtle border border-primary text-primary p-2"
             >
-              Enviar Circular
+              Adjuntar archivo pdf
             </button>
           </form>
 
           <form onSubmit={enviar}>
             <button type="submit" className="btn btn-success mx-3 ">
-              Enviar Recibo de Administración
+              Enviar Circular
             </button>
           </form>
         </div>
       </div>
-      <table
-        id="example2"
-        className="table table-bordered table-hover dataTable dtr-inline mb-3"
-        aria-describedby="example2_info"
-      >
-        <thead>
-          <tr>
-            <th
-              className="sorting"
-              tabIndex="0"
-              aria-controls="example2"
-              rowSpan="1"
-              colSpan="1"
-              aria-label="Rendering engine: activate to sort column ascending"
-            >
-              Correos
-            </th>
-            <th
-              className="sorting"
-              tabIndex="0"
-              aria-controls="example2"
-              rowSpan="1"
-              colSpan="1"
-              aria-label="Platform(s): activate to sort column ascending"
-            >
-              Estado de envío
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRecords.map((record, index) => (
-            <tr
-              key={index}
-              className={
-                record.EstadoEnvio === "Enviado"
-                  ? "table-success"
-                  : record.EstadoEnvio === "No enviado"
-                  ? "table-danger"
-                  : "table-warning"
-              }
-            >
-              <td>{record.correo}</td>
-              <td>
-                {record.EstadoEnvio === "No enviado" ? (
-                  <button
-                    // onClick={(e) => {
-                    //   reenviar(record.id);
-                    //   enviar(e);
-                    // }}
-                    type="submit"
-                    class="btn btn-danger px-2"
-                  >
-                    Volver a enviar
-                  </button>
-                ) : (
-                  record.EstadoEnvio
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };
