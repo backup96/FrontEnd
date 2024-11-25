@@ -39,15 +39,12 @@ const Info = ({ currentRecords, apiS, data }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", text.file)
+    formData.append("text", text.text);
     currentRecords.forEach((item) => {
       formData.append(
         "recipients[]",
         JSON.stringify({
-          correo: item.correo,
-          nombre: `${item.nombre} ${item.apellido}`,
-          codVivi: item.codigoVivienda,
-          codPer: item.numDocumento,
-          numPar: item.idParqueaderoFk,
+          correo: item.correo
         })
       );
     });
