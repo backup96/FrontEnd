@@ -56,7 +56,11 @@ const Info = ({ currentRecords, apiS, data }) => {
   const handleSend = (data) => {
     console.log(data);
     axios
-      .post(`${proxy}/admin/sendCircularInformacion`, data)
+      .post(`${proxy}/admin/sendCircularInformacion`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data", // Header que indica el envio de datos planos y Archivos
+          },
+        })
       .then((res) => {
         if (res.status === 200) {
           console.log("Circulares enviados");
