@@ -38,38 +38,39 @@ const Info = ({ currentRecords, apiS, data }) => {
   const enviar = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    currentRecords.map(
-      (item) => (
-        formData.append("correo", item.correo),
-        formData.append("nombre", `${item.nombre} ${item.apellido}`),
-        formData.append("codVivi", item.codigoVivienda),
-        formData.append("codPer", item.numDocumento),
-        formData.append("numPar", item.idParqueaderoFk),
-        formData.append("text", text.text),
-        formData.append("file", text.file),
-        handleSend(formData)
-      )
-    );
-    toast.success("Recibos enviados satisfactoriamente");
+    currentRecords.forEach((item) => {
+      formData.append(
+        "recipients[]",
+        JSON.stringify({
+          correo: item.correo,
+          nombre: `${item.nombre} ${item.apellido}`,
+          codVivi: item.codigoVivienda,
+          codPer: item.numDocumento,
+          numPar: item.idParqueaderoFk,
+        })
+      );
+    });
+    try {
+      const res = await axios.post(
+        `${proxy}/admin/sendCircularInformacion`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (res.status === 200) {
+        toast.success("Recibos enviados satisfactoriamente");
+      } else {
+        toast.error("Error al enviar correos");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Error en la solicitud");
+    }
   };
 
-  const handleSend = (data) => {
-    console.log(data);
-    axios
-      .post(`${proxy}/admin/sendCircularInformacion`, data, {
-          headers: {
-            "Content-Type": "multipart/form-data", // Header que indica el envio de datos planos y Archivos
-          },
-        })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("Circulares enviados");
-        } else {
-          console.log("Correos no enviados");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
   return (
     <div className="d-flex flex-column w-100 h-50">
       <ToastContainer />

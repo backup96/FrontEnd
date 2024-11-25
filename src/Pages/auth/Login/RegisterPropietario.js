@@ -66,7 +66,7 @@ const RegisterPropietario = () => {
       const formData = new FormData();
 
       // Agregar los datos del formulario al FormData
-      formData.append("Nombre", values.Nombre);
+      formData.append("Nombre", values.Nombre)
       formData.append("Apellido", values.Apellido);
       formData.append("NumeroDocumento", values.NumeroDocumento);
       formData.append("Tel", values.Tel);
