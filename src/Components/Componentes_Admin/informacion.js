@@ -1,6 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPaperclip);
 
 const Info = ({ currentRecords, apiS, data }) => {
   const proxy = process.env.REACT_APP_API_URL;
@@ -89,13 +95,13 @@ const Info = ({ currentRecords, apiS, data }) => {
               type="submit"
               className="btn mx-2 bg-primary-subtle border border-primary text-primary p-2"
             >
-              Adjuntar archivo pdf
+              <FontAwesomeIcon icon={faPaperclip} />
             </button>
           </form>
 
           <form onSubmit={enviar}>
             <button type="submit" className="btn btn-success mx-3 ">
-              Enviar Circular
+              <FontAwesomeIcon icon={faPaperPlane} />
             </button>
           </form>
         </div>
