@@ -10,8 +10,29 @@ library.add(faPaperclip);
 
 const Info = ({ currentRecords, apiS, data }) => {
   const proxy = process.env.REACT_APP_API_URL;
+  const [isHovered, setIsHovered] = useState(false);
+  const handleButtonClick = () => {
+    document.getElementById("inputGroupFile04").click();
+  };
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+  const [fileName, setFileName] = useState(
+    "Adjuntar Foto del Contrato de Propiedad o Certificado de Tradición y Libertad"
+  );
+  const defFile = (e) => {
+    const file = e.target.files[0];
+    setText({ ...text, file: file });
+    if (file) {
+      setFileName(file.name);
+    } else {
+      setFileName(
+        "Adjuntar Foto del Contrato de Propiedad o Certificado de Tradición y Libertad"
+      );
+    }
+  };
   const [text, setText] = useState({
     text: "",
+    file: ""
   });
 
   const enviar = async (e) => {
@@ -23,34 +44,14 @@ const Info = ({ currentRecords, apiS, data }) => {
         codVivi: item.codigoVivienda,
         codPer: item.numDocumento,
         numPar: item.idParqueaderoFk,
+        text: text.text,
+        file: text.file
       })
     );
     toast.success("Recibos enviados satisfactoriamente");
   };
 
-  const enviarCircular = async (e) => {
-    e.preventDefault();
-    currentRecords.map((item) =>
-      handleSend2({ correo: item.correo, text: text.text })
-    );
-    toast.success("Circulares enviadss satisfactoriamente");
-  };
-
   const handleSend = (data) => {
-    console.log(data);
-    axios
-      .post(`${proxy}/admin/sendInformacion`, data)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("Correos enviados");
-        } else {
-          console.log("Correos no enviados");
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleSend2 = (data) => {
     console.log(data);
     axios
       .post(`${proxy}/admin/sendCircularInformacion`, data)
@@ -90,16 +91,31 @@ const Info = ({ currentRecords, apiS, data }) => {
           ></textarea>
         </div>
         <div className="d-flex justify-content-end my-3">
-          <form onSubmit={enviarCircular}>
+          <form onSubmit={enviar}>
             <button
-              type="submit"
-              className="btn mx-2 bg-primary-subtle border border-primary text-primary p-2"
+              type="button"
+              className={
+                isHovered
+                  ? "btn btn-outline-primary text-white"
+                  : "btn btn-outline-primary text-primary"
+              }
+              onClick={handleButtonClick}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <FontAwesomeIcon icon={faPaperclip} />
+              <input
+                type="file"
+                id="inputGroupFile04"
+                className="d-none"
+                aria-describedby="inputGroupFileAddon04"
+                aria-label="Upload"
+                onChange={(e) => defFile(e)}
+                accept="application/pdf"
+                hidden
+              />
             </button>
-          </form>
-
-          <form onSubmit={enviar}>
+            
             <button type="submit" className="btn btn-success mx-3 ">
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
