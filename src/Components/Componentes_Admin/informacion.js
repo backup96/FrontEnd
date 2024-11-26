@@ -42,10 +42,8 @@ const Info = ({ currentRecords, apiS, data }) => {
     formData.append("text", text.text);
     currentRecords.forEach((item) => {
       formData.append(
-        "recipients{}",
-        JSON.stringify({
-          correo: item.correo
-        })
+        "recipients[]",
+           item.correo
       );
     });
     try {
