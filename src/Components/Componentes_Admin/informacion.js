@@ -16,9 +16,7 @@ const Info = ({ currentRecords, apiS, data }) => {
   };
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
-  const [fileName, setFileName] = useState(
-    "Adjuntar Foto del Contrato de Propiedad o Certificado de Tradición y Libertad"
-  );
+  const [fileName, setFileName] = useState("No ha adjuntado algun archivo");
   const defFile = (e) => {
     const file = e.target.files[0];
     setText({ ...text, file: file });
