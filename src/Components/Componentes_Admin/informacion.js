@@ -25,9 +25,7 @@ const Info = ({ currentRecords, apiS, data }) => {
     if (file) {
       setFileName(file.name);
     } else {
-      setFileName(
-        "Adjuntar Foto del Contrato de Propiedad o Certificado de Tradición y Libertad"
-      );
+      setFileName("No ha adjuntado algun archivo");
     }
   };
   const [text, setText] = useState({
@@ -98,7 +96,7 @@ const Info = ({ currentRecords, apiS, data }) => {
             <snap className="fs-4">Archivo adjunto</snap>
             <hr />
             <snap className="text-primary">
-              {!fileName ? "No ha adjuntado algun archivo" : fileName}
+              {fileName}
             </snap>
           </div>
           <form onSubmit={enviar}>
