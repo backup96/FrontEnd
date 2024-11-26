@@ -95,7 +95,11 @@ const Info = ({ currentRecords, apiS, data }) => {
         </div>
         <div className="d-flex flex-row justify-content-between my-3">
           <div>
-            <snap className="text-primary">Hello hello0</snap>
+            <snap className="fs-4">Archivo adjunto</snap>
+            <hr />
+            <snap className="text-primary">
+              {!fileName ? "No ha adjuntado algun archivo" : fileName}
+            </snap>
           </div>
           <form onSubmit={enviar}>
             <button
