@@ -93,7 +93,10 @@ const Info = ({ currentRecords, apiS, data }) => {
             onChange={(e) => setText({ ...text, text: e.target.value })}
           ></textarea>
         </div>
-        <div className="d-flex justify-content-end my-3">
+        <div className="d-flex flex-row justify-content-between my-3">
+          <div>
+            <snap className="text-primary">Hello hello0</snap>
+          </div>
           <form onSubmit={enviar}>
             <button
               type="button"
@@ -118,7 +121,7 @@ const Info = ({ currentRecords, apiS, data }) => {
                 hidden
               />
             </button>
-            
+
             <button type="submit" className="btn btn-success mx-3 ">
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
